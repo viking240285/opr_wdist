@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-             {{ __('Edit Position') }}: {{ $position->name }} ({{ $department->name }} / {{ $department->organization->name }})
+             {{ __('Редактирование должности') }}: {{ $position->name }} ({{ $department->name }} / {{ $department->organization->name }})
         </h2>
     </x-slot>
 

@@ -1,21 +1,19 @@
 @csrf
 
-{{-- Hidden field for department_id --}}
-<input type="hidden" name="department_id" value="{{ $department->id }}">
+{{-- Скрытое поле department_id будет передано в контроллер через маршрут --}}
+{{-- или можно оставить: <input type="hidden" name="department_id" value="{{ $department->id }}"> --}}
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <x-bladewind::input
-        name="name"
-        label="{{ __('Position Name') }}"
-        required="true"
-        value="{{ old('name', $position->name ?? null) }}"
-        class="md:col-span-2" />
+<div class="grid grid-cols-1 gap-6">
+    {{-- Название должности --}}
+    <div>
+        <x-input-label for="name" :value="__('Название должности')" />
+        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $position->name ?? '')" required autofocus />
+        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+    </div>
 </div>
 
-<div class="mt-6 text-right">
-    <x-bladewind::button
-        can_submit="true"
-        name="save-pos">
-        {{ isset($position) ? __('Update Position') : __('Save Position') }}
-    </x-bladewind::button>
+<div class="flex items-center justify-end mt-6">
+    <x-primary-button class="ms-4">
+        {{ isset($position) ? __('Обновить должность') : __('Сохранить должность') }}
+    </x-primary-button>
 </div>

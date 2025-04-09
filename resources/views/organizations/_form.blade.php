@@ -1,42 +1,45 @@
 @csrf
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <x-bladewind::input
-        name="name"
-        label="{{ __('Organization Name') }}"
-        required="true"
-        value="{{ old('name', $organization->name ?? null) }}" />
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {{-- Название организации --}}
+    <div>
+        <x-input-label for="name" :value="__('Название организации')" />
+        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $organization->name ?? '')" required autofocus />
+        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+    </div>
 
-    <x-bladewind::input
-        name="inn"
-        label="{{ __('INN') }}"
-        numeric="true" {{-- Assuming INN is numeric --}}
-        value="{{ old('inn', $organization->inn ?? null) }}" />
+    {{-- ИНН --}}
+    <div>
+        <x-input-label for="inn" :value="__('ИНН')" />
+        <x-text-input id="inn" class="block mt-1 w-full" type="text" name="inn" :value="old('inn', $organization->inn ?? '')" /> {{-- тип text, валидация в контроллере --}}
+        <x-input-error :messages="$errors->get('inn')" class="mt-2" />
+    </div>
 
-    <x-bladewind::input
-        name="kpp"
-        label="{{ __('KPP') }}"
-        numeric="true" {{-- Assuming KPP is numeric --}}
-        value="{{ old('kpp', $organization->kpp ?? null) }}" />
+    {{-- КПП --}}
+    <div>
+        <x-input-label for="kpp" :value="__('КПП')" />
+        <x-text-input id="kpp" class="block mt-1 w-full" type="text" name="kpp" :value="old('kpp', $organization->kpp ?? '')" /> {{-- тип text, валидация в контроллере --}}
+        <x-input-error :messages="$errors->get('kpp')" class="mt-2" />
+    </div>
 
-    {{-- Placeholder for logo upload --}}
-    {{-- <x-bladewind::input
-        name="logo"
-        label="{{ __('Logo') }}"
-        type="file" /> --}}
+    {{-- Логотип (пока не реализовано) --}}
+    {{-- <div class="md:col-span-2">
+        <x-input-label for="logo" :value="__('Логотип')" />
+        <x-text-input id="logo" type="file" name="logo" class="mt-1 block w-full" />
+        <x-input-error :messages="$errors->get('logo')" class="mt-2" />
+    </div> --}}
 
-    <x-bladewind::textarea
-        name="address"
-        label="{{ __('Address') }}"
-        class="md:col-span-2" {{-- Span across two columns on medium screens --}}
-        value="{{ old('address', $organization->address ?? null) }}" />
+    {{-- Адрес --}}
+    <div class="md:col-span-2">
+        <x-input-label for="address" :value="__('Адрес')" />
+        <textarea id="address" name="address" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">{{ old('address', $organization->address ?? '') }}</textarea>
+        <x-input-error :messages="$errors->get('address')" class="mt-2" />
+    </div>
 
 </div>
 
-<div class="mt-6 text-right">
-    <x-bladewind::button
-        can_submit="true"
-        name="save-org">
-        {{ __('Save Organization') }}
-    </x-bladewind::button>
+<div class="flex items-center justify-end mt-6">
+    <x-primary-button class="ms-4">
+        {{ __('Сохранить организацию') }}
+    </x-primary-button>
 </div>
